@@ -1,0 +1,35 @@
+- name: Xfce configuration
+  hosts: myhosts
+  tasks:
+    
+    - name: Disable display power management
+      become: True
+      become_user: user
+      environment:
+        DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+      community.general.xfconf:
+        channel: xfce4-power-manager
+        property: /xfce4-power-manager/dpms-enabled
+        value_type: bool
+        value: false
+
+    - name: Disable screensaver lock
+      become: True
+      become_user: user
+      environment:
+        DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+      community.general.xfconf:
+        channel: xfce4-screensaver
+        property: /lock/enabled
+        value_type: bool
+        value: false
+    - name: Disable screensaver entirely
+      become: True
+      become_user: user
+      environment:
+        DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+      community.general.xfconf:
+        channel: xfce4-screensaver
+        property: /saver/enabled
+        value_type: bool
+        value: false

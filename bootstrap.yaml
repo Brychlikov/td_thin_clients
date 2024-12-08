@@ -1,0 +1,24 @@
+- name: Bootstrap settings necessary for ansible and dnf
+  hosts: myhosts
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install python3-libdnf5 using raw module
+      raw: dnf install -y python3-libdnf5
+      register: install_result
+      failed_when: install_result.rc != 0
+
+    - name: Configure passwordless sudo for the wheel group
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel ALL=\(ALL\) NOPASSWD: ALL'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        state: present
+        validate: 'visudo -cf %s'
+
+    - name: Remove default wheel group sudo configuration (if it exists)
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel ALL=\(ALL\) ALL'
+        state: absent
+        validate: 'visudo -cf %s'

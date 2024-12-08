@@ -1,0 +1,10 @@
+- name: Free space by reemoving packages
+  hosts: myhosts
+  become: true
+  tasks:
+    
+    - name: remove unneeded packages
+      ansible.builtin.dnf:
+        name: firefox
+        autoremove: true
+        state: absent

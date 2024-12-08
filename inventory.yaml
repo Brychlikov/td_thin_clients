@@ -1,0 +1,14 @@
+
+myhosts:
+  hosts:
+    # terminalA:
+    #   ansible_host:
+    #     192.168.0.147
+    terminalB:
+      ansible_host:
+        192.168.1.32
+  vars:
+    ansible_user: user 
+    ansible_become: true
+
+

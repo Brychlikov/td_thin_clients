@@ -1,0 +1,35 @@
+- name: Configure LightDM Autologin
+  hosts: all
+  become: true
+  vars:
+    autologin_user: user
+    autologin_session: xfce
+  tasks:
+    - name: Ensure LightDM configuration for autologin is set
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        regexp: '^autologin-user='
+        line: 'autologin-user={{ autologin_user }}'
+        insertafter: '^\[Seat:\*\]'
+        state: present
+
+    - name: Ensure autologin-session is set (optional)
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        regexp: '^autologin-session='
+        line: 'autologin-session={{ autologin_session | default("") }}'
+        insertafter: '^\[Seat:\*\]'
+        state: present
+      when: autologin_session is defined and autologin_session != ""
+
+    - name: Create the autologin group if not exists
+      ansible.builtin.group:
+        name: autologin
+        state: present
+        system: yes
+
+    - name: Add user to autologin group
+      ansible.builtin.user:
+        name: "{{ autologin_user }}"
+        groups: autologin
+        append: true
