@@ -33,3 +33,13 @@
         property: /saver/enabled
         value_type: bool
         value: false
+    - name: Extend when new monitor is connected
+      become: True
+      become_user: user
+      environment:
+        DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+      community.general.xfconf:
+        channel: displays
+        property: /Notify
+        value_type: int
+        value: 3

@@ -1,0 +1,22 @@
+- name: Monitor udev rules
+  hosts: all
+  tasks:
+    - name: Copy script to be triggered on monitor change
+      ansible.builtin.copy:
+        src: ./monitor_script.sh
+        dest: /home/user/monitor_script.sh
+        owner: user
+        group: user
+        mode: '0755'
+
+    - name: Copy udev rule
+      become: true
+      ansible.builtin.copy: 
+        src: ./99-monitor.rules
+        dest: /etc/udev/rules.d/99-monitor.rules
+
+    - name: Reload udev rules
+      become: true
+      ansible.builtin.command: udevadm control --reload-rules
+
+

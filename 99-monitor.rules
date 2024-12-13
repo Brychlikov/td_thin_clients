@@ -1,0 +1,2 @@
+ACTION=="change", SUBSYSTEM=="drm", KERNEL=="card0", RUN+="/home/user/monitor_script.sh"
+

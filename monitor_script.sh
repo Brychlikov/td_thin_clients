@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export DISPLAY=:0.0
-export XAUTHORITY=/run/lightdm/brych/xauthority
+export XAUTHORITY=/run/lightdm/user/xauthority
 
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 echo "$TIMESTAMP: Monitor event detected" >> /var/log/monitor_events.log
@@ -20,7 +20,7 @@ echo $connected_monitors
 
 for x in $connected_monitors; do
     echo "Trying to play ${x}.mp4 at ${x: -1}"
-    sudo -u brych vlc /home/brych/Videos/${x}.mp4 --fullscreen --qt-fullscreen-screennumber=${x: -1} --loop --qt-minimal-view &
+    sudo -u user vlc /home/user/Videos/${x}.mp4 --fullscreen --qt-fullscreen-screennumber=${x: -1} --loop --qt-minimal-view &
 done
     
 
