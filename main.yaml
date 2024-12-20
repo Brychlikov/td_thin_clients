@@ -1,0 +1,10 @@
+- name: Make some space 
+  import_playbook: ./cleanup.yaml
+- name: Install packages
+  import_playbook: ./packages.yaml
+- name: Configure xfce
+  import_playbook: ./xfceconf.yaml
+- name: Setup monitor triggers
+  import_playbook: ./monitor-trigger.yaml
+- name: Setup autologin
+  import_playbook: ./autologin.yaml
