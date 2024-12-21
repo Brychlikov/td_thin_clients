@@ -1,6 +1,30 @@
 - name: Monitor udev rules
   hosts: all
   tasks:
+    - name: Ensure the autostart directory exists
+      file:
+        path: ~/.config/autostart
+        state: directory
+        mode: '0755'
+
+    - name: Create the desktop entry file
+      copy:
+        dest: ~/.config/autostart/monitor_script.desktop
+        content: |
+          [Desktop Entry]
+          Type=Application
+          Name=Monitor Script
+          Exec=sudo /home/{{ ansible_user }}/monitor_script.sh
+          X-GNOME-Autostart-enabled=true
+        mode: '0644'
+
+    - name: Verify sudo permissions for the script
+      lineinfile:
+        path: /etc/sudoers.d/monitor_script
+        create: yes
+        line: "{{ ansible_user }} ALL=(ALL) NOPASSWD: /home/{{ ansible_user }}/monitor_script.sh"
+        state: present
+
     - name: Copy script to be triggered on monitor change
       ansible.builtin.copy:
         src: ./monitor_script.sh
