@@ -22,7 +22,9 @@
         devShells.default = with pkgs; pkgs.mkShell {
           buildInputs = [
             ansible
+            vlc
             nmap
+            ffmpeg
           ];
         };
       }
