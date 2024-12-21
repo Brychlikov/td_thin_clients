@@ -3,7 +3,7 @@
 export DISPLAY=:0.0
 export XAUTHORITY=/run/lightdm/user/xauthority
 
-CONTROLLER_ADDR=192.168.1.15
+CONTROLLER_ADDR=192.168.1.107
 
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 echo "$TIMESTAMP: Monitor event detected" >> /var/log/monitor_events.log

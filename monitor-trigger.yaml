@@ -19,4 +19,9 @@
       become: true
       ansible.builtin.command: udevadm control --reload-rules
 
+    - name: Retrigger udev
+      become: true
+      ansible.builtin.command: udevadm trigger
+      
+
 
