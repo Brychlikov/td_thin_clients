@@ -22,3 +22,11 @@
         regexp: '^%wheel ALL=\(ALL\) ALL'
         state: absent
         validate: 'visudo -cf %s'
+
+    - name: Authorize SSH key for the user
+      ansible.builtin.copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: /home/user/.ssh/authorized_keys
+        owner: ansible
+        group: ansible
+        mode: '0600'
