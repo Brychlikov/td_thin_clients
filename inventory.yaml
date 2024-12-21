@@ -10,10 +10,10 @@ myhosts:
     terminalH:  # TODO Change to 108
       ansible_host:
         192.168.1.104
-      # terminalG:
-      #   ansible_host:
-      #     # 192.168.1.103
-      #     192.168.1.34 # TODO
+    terminalG:
+      ansible_host:
+        # 192.168.1.103
+        192.168.1.106 # TODO
     # terminalB:
     #   ansible_host:
     #     192.168.1.102
